@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="supermario" tilewidth="32" tileheight="32">
+  <image source="../../ProjektTestslick/bin/res/supermario.png" width="400" height="346"/>
+  <tile id="30">
+   <properties>
+    <property name="Collidable" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="10" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2DggDwd8GACg9Vdo2AUkAMA0/EDZQ==
+  </data>
+ </layer>
+</map>
