@@ -142,7 +142,7 @@ public class Player extends Creature {
 	public void setLives(int lives) {
 		this.lives = lives;
 	}
-
+	@Override
 	public void update(GameContainer gc, int mapWidth, int mapHeight, int delta) throws SlickException {
 		/**
 		 * How much the character moved
@@ -187,13 +187,12 @@ public class Player extends Creature {
 			pos.x -= trans.x;			
 		}
 		
-		
 		/** 
 		 * Funkar ej av ngn anledning. skotten renderas EJ.
 		 */
 		for(int i = 0; i < listOfShots.size(); i++) {
-			listOfShots.get(i).update(delta);
-			listOfShots.get(i).render();
+			//Game.entities.get(i).update(delta);
+			//listOfShots.get(i).render();
 		}
 	}
 	
@@ -206,8 +205,7 @@ public class Player extends Creature {
 			bulletStartPosition_X = pos.x - 1;
 		else 
 			bulletStartPosition_X = pos.x + width + 1;
-		
-		listOfShots.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 10, 10, new Image("res/heart.png"), blocked, hDir));
+		Game.entities.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 10, 10, new Image("res/heart.png"), blocked, hDir));
 	}
 	
 	public boolean isImmune() {

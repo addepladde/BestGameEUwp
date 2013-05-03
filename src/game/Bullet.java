@@ -13,6 +13,7 @@ public class Bullet extends Entity {
 		sprite.draw(pos.x, pos.y, 0.1f);
 	}
 	
+	@Override
 	public void update(int delta) {
 		
 		Vector2f trans = new Vector2f(0, 0);

@@ -11,7 +11,7 @@ public class Monster extends Creature {
 		this.walkingSpeed = walkingSpeed;
 	}
 	
-	
+	@Override
 	public void update(Player player, int delta) {
 		fall(delta);
 		moveTowardsPlayer(player, delta);		

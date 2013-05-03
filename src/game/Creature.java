@@ -91,23 +91,13 @@ public abstract class Creature extends Entity {
 	}
 
  
-	public void render() {
-		sprite.draw(pos.x, pos.y);
-	}
+	
  
 	// Getters and Setters
 	public Vector2f getPos() {
 		return pos;
 	}
- 
-	public float getX() {
-		return pos.x;
-	}
- 
-	public float getY() {
-		return pos.y;
-	}
- 
+  
 	public void setPos(Vector2f pos) {
 		this.pos = pos;
 	}
