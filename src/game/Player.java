@@ -143,7 +143,6 @@ public class Player extends Creature {
 		 */
 		Vector2f trans = new Vector2f(0, 0); 
 		Input input = gc.getInput();
-		System.out.println(verticalSpeed);
 		fall(delta);
 		
 		if(isOnGround())

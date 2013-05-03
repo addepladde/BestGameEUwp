@@ -40,7 +40,7 @@ public class Game extends BasicGame {
 	private static final int fpslimit = 60;
 
 	//Variables
-	public static final float GRAVITY = 1f;
+	public static final float GRAVITY = 0.01f;
 	private Map map; 				//The file that contain the world we are
 	private Player player; 			//The moving entity we will follow
 	private Camera camera; 

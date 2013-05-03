@@ -78,8 +78,6 @@ public abstract class Entity {
 		if(this == e)
 			return;
 		
-		
-		System.out.println(this.getClass() );
 		if(this.isInBlock() && this.getClass().toString().equals("class game.Bullet")) {
 			Game.entities.remove(this);
 		}

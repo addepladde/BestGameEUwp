@@ -18,7 +18,7 @@ public abstract class Creature extends Entity {
 		}	
 		
 		if(!isOnGround()) {
-			verticalSpeed += Game.GRAVITY * delta/100;
+			verticalSpeed += Game.GRAVITY * delta;
 		}			
 		
 		if(verticalSpeed > 0)

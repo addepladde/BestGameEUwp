@@ -15,7 +15,6 @@ public class Bullet extends Entity {
 	
 	@Override
 	public void update(int delta) {
-		System.out.println(delta);
 		Vector2f trans = new Vector2f(0, 0);
 		
 		trans.x = horizontalSpeed * delta;
