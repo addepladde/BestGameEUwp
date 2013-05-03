@@ -170,7 +170,6 @@ public class Player extends Creature {
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			shoot();			
 		}
- 
 		
 		/**
 		 * Should not move faster diagonally
@@ -180,7 +179,6 @@ public class Player extends Creature {
 		}
  
 		pos.x += trans.x; 
-	//	pos.y += trans.y;
 		
 		/**
 		 * No need to check direction due to the fact that we need to subtract it either way
@@ -209,7 +207,7 @@ public class Player extends Creature {
 		else 
 			bulletStartPosition_X = pos.x + width + 1;
 		
-		listOfShots.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 10, 10, new Image("res/heart.png"), hDir));
+		listOfShots.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 10, 10, new Image("res/heart.png"), blocked, hDir));
 	}
 	
 	public boolean isImmune() {

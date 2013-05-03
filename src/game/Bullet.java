@@ -3,25 +3,10 @@ package game;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Bullet {
-	
-	
-	private Vector2f pos;
-	private int width, height;
-	private float speed;
-	
-	Image sprite;
-	//VerticalDirection vDir;
-	HorizontalDirection hDir;
-	
-
-	public Bullet(float x, float y, int width, int height, Image sprite, HorizontalDirection hDir) {
-		pos = new Vector2f(x,y);
-		this.width = width;
-		this.height = height;
-		this.sprite = sprite;
-		this.hDir = hDir;
-		this.speed = .4f;
+public class Bullet extends Entity {
+	public Bullet(float x, float y, int width, int height, Image sprite, boolean[][] blocked, HorizontalDirection hDir) {
+		super(x, y, width, height, sprite, blocked);
+		this.hDir = hDir;  
 	}
 	
 	public void render() {
@@ -32,7 +17,7 @@ public class Bullet {
 		
 		Vector2f trans = new Vector2f(0, 0);
 		
-		trans.x = speed * delta;
+		trans.x = verticalSpeed * delta;
 		
 		if(hDir == HorizontalDirection.RIGHT)
 			pos.x += trans.x;

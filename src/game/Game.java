@@ -11,7 +11,15 @@ import org.newdawn.slick.SlickException;
  
 
 /**
+ * TODO
  * 
+ * träffa med skott
+ * 
+ * kunna hoppa på fiender så att de dör
+ * 
+ * kunna dö
+ * 
+ * statebased game
  *
  * döp om creature till entity, låt all ärva från den, bulet också
  * 
@@ -22,7 +30,7 @@ import org.newdawn.slick.SlickException;
  * 
  * @author addewp
  *
- *///jag hatar github fack
+ */
 public class Game extends BasicGame {
  
 	//Constants
