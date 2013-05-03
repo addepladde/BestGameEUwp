@@ -36,22 +36,22 @@ public class Player extends Creature {
 		this.height = height;
 	}
 
-	public Player(float x, float y, int width, int height, Image sprite, boolean[][] blocked) {
-		super(x, y, width, height, sprite, blocked);
+	public Player(float x, float y, int width, int height, Image sprite, boolean[][] blocked, float horizontalSpeed) {
+		super(x, y, width, height, sprite, blocked, horizontalSpeed);
 		
 		this.hDir = HorizontalDirection.RIGHT;
 		
 		listOfShots = new LinkedList<Bullet>();
 		
-		walkingSpeed = 0.2f;
+		horizontalSpeed = 0.2f;
 		jumping = false;
 		ducking = false;
 		immune = false;
-		lives = 4;
 		level = 1;
+		lives = level;
 		experienceGained = 20;
 		maxLevel = 10;
-		maxNumberOfLives = 5;
+		maxNumberOfLives = level;
 		
 		experienceNeeded = experienceNeededList[level-1];
 	}
@@ -127,13 +127,7 @@ public class Player extends Creature {
 		this.verticalSpeed = verticalSpeed;
 	}
 
-	public float getWalkingSpeed() {
-		return walkingSpeed;
-	}
 
-	public void setWalkingSpeed(float walkingSpeed) {
-		this.walkingSpeed = walkingSpeed;
-	}
 
 	public int getLives() {
 		return lives;
@@ -149,7 +143,7 @@ public class Player extends Creature {
 		 */
 		Vector2f trans = new Vector2f(0, 0); 
 		Input input = gc.getInput();
-		
+		System.out.println(verticalSpeed);
 		fall(delta);
 		
 		if(isOnGround())
@@ -162,10 +156,10 @@ public class Player extends Creature {
 				duck();			
 		}
  		if (input.isKeyDown(Input.KEY_D)) {
-			trans.x = moveRight(delta, walkingSpeed);
+			trans.x = moveRight(delta, horizontalSpeed);
 		} 
 		if (input.isKeyDown(Input.KEY_A)) {
-			trans.x = moveLeft(delta, walkingSpeed);			
+			trans.x = moveLeft(delta, horizontalSpeed);			
 		}		
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			shoot();			
@@ -205,7 +199,7 @@ public class Player extends Creature {
 			bulletStartPosition_X = pos.x - 1;
 		else 
 			bulletStartPosition_X = pos.x + width + 1;
-		Game.entities.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 10, 10, new Image("res/heart.png"), blocked, hDir));
+		Game.entities.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 10, 10, new Image("res/heart.png"), blocked, hDir, 0.5f));
 	}
 	
 	public boolean isImmune() {

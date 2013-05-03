@@ -6,9 +6,8 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Monster extends Creature {
 	
-	public Monster(float x, float y, int width, int height, Image sprite, float walkingSpeed, boolean[][] blocked) {
-		super(x, y, width, height, sprite, blocked);
-		this.walkingSpeed = walkingSpeed;
+	public Monster(float x, float y, int width, int height, Image sprite, boolean[][] blocked, float horizontalSpeed) {
+		super(x, y, width, height, sprite, blocked, horizontalSpeed);
 	}
 	
 	@Override
@@ -41,22 +40,19 @@ public class Monster extends Creature {
 	    /** Move towards the player **/
 	    /** Move 15 pixels inside the player **/
 	    if(playerPosition.x + 15 > pos.x + width) {
-	    	trans.x += walkingSpeed * delta;
+	    	trans.x += horizontalSpeed * delta;
 	    	hDir = HorizontalDirection.RIGHT;
 	    }
 	    else if(playerPosition.x + player.width < pos.x + 15) {
-	    	trans.x -= walkingSpeed * delta;
+	    	trans.x -= horizontalSpeed * delta;
 	    	hDir = HorizontalDirection.LEFT;
 	    }
 	    
 	    pos.x += trans.x;
 	    
-	    if (isInBlock() && hDir == HorizontalDirection.RIGHT) {
-	    	pos.x -= trans.x;
-	    } 
-	    else if (isInBlock() && hDir == HorizontalDirection.LEFT) {
-	    	pos.x += trans.x;
-	    }
+	    if(isInBlock() && trans.x != 0) {
+			pos.x -= trans.x;			
+		}
 	    
 	    if(monster.intersects(playerRect)) {
 	    	player.getAttacked();

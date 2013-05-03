@@ -4,8 +4,8 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class Creature extends Entity {
-	public Creature(float x, float y, int width, int height, Image sprite, boolean[][] blocked) {
-		super(x, y, width, height, sprite, blocked);
+	public Creature(float x, float y, int width, int height, Image sprite, boolean[][] blocked, float horizontalSpeed) {
+		super(x, y, width, height, sprite, blocked, horizontalSpeed);
 	}
 	
 	/** Simulate gravity **/
@@ -21,7 +21,10 @@ public abstract class Creature extends Entity {
 			verticalSpeed += Game.GRAVITY * delta/100;
 		}			
 		
-		vDir = VerticalDirection.DOWN;
+		if(verticalSpeed > 0)
+			vDir = VerticalDirection.DOWN;
+		else 
+			vDir = VerticalDirection.UP;
 			
 			
 	}
@@ -30,9 +33,9 @@ public abstract class Creature extends Entity {
 	 * @param delta Time since last frame
 	 * @return How much the character moved
 	 */
-	public float moveLeft(int delta, float walkingSpeed) {
+	public float moveLeft(int delta, float horizontalSpeed) {
 		hDir = HorizontalDirection.LEFT;
-		return -walkingSpeed * delta;
+		return -horizontalSpeed * delta;
 	}
 	
 	/**
@@ -40,59 +43,17 @@ public abstract class Creature extends Entity {
 	 * @param delta Time since last frame
 	 * @return How much the character moved
 	 */
-	public float moveRight(int delta, float walkingSpeed) {
+	public float moveRight(int delta, float horizontalSpeed) {
 		hDir = HorizontalDirection.RIGHT;
-		return walkingSpeed * delta;
+		return horizontalSpeed * delta;
 	}
 
-	/**
-	 * Checks if any part of the creature is in a block
-	 */
-	public boolean isInBlock() {
-		
-		int xBlock = getXTile(HorizontalDirection.RIGHT);
-		int yBlock = getYTile(VerticalDirection.DOWN);
-		
-		int xBlock2 = getXTile(HorizontalDirection.LEFT);
-		int yBlock2 = getYTile(VerticalDirection.UP);
-		
-		return (blocked[xBlock][yBlock] 
-				|| blocked[xBlock2][yBlock]
-						|| blocked[xBlock][yBlock2]
-								|| blocked[xBlock2][yBlock2]);
-	}
-	
 	public boolean isOnGround() {
 	
 		return	blocked[(getXTile(HorizontalDirection.LEFT))][(getYTile(VerticalDirection.DOWN)+1)] 
 				|| blocked[(getXTile(HorizontalDirection.RIGHT))][(getYTile(VerticalDirection.DOWN)+1)];
 	}
-	
-	/** Returns the x-coordinate of the tile which the creature is standing on **/
-	/** If the character is facing LEFT and is standing between two blocks, returns the right block **/
-	public int getXTile(HorizontalDirection hDir) {
-				
-		if(hDir == HorizontalDirection.LEFT) { 
-			return (int) (pos.x + width) / 32;
-		}
-		
-		return (int) (pos.x) / 32;
-		
-	}
-	
-	/** Returns the y-coordinate of the tile which the creature is standing on **/
-	/** If the character is heading up and is between two blocks, return the lower block **/
-	public int getYTile(VerticalDirection vDir) {
-		if(vDir == VerticalDirection.UP) { 
-			return (int) (pos.y + height - 1) / 32;
-		}
-		
-		return (int) (pos.y + 1) / 32;
-	}
-
- 
-	
- 
+   
 	// Getters and Setters
 	public Vector2f getPos() {
 		return pos;

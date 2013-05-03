@@ -51,7 +51,7 @@ public class GUI {
 		else
 			transX = (int) -player.getX()+Game.WIDTH/2;
 		
-		experienceBar = new Rectangle(gc.getWidth()/2-transX+100, 30, experienceBarWidth, 20);
+		experienceBar = new Rectangle(gc.getWidth()/2-transX, 30, experienceBarWidth, 20);
 		float gainedExpPercent = (experienceBar.getWidth()/player.getExperienceNeeded() * player.getExperienceGained());
 		experienceGainedBar = new Rectangle(experienceBar.getX(), experienceBar.getY(), gainedExpPercent, experienceBar.getHeight());
 		

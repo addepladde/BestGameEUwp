@@ -31,8 +31,8 @@ import org.newdawn.slick.SlickException;
 public class Game extends BasicGame {
 
 	//Constants
-	public static final int WIDTH = 1024;
-	public static final int HEIGHT = 320;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 640;
 
 	private static final boolean fullscreen = false;
 	private static final boolean showFPS = true;
@@ -61,8 +61,8 @@ public class Game extends BasicGame {
 
 		entities = new LinkedList<Entity>();
 
-		entities.add(new Player(1*32, 2*32, 32, 32, new Image("res/emo.png"), blocked));
-		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/emo.png"), 0.1f, blocked));
+		entities.add(new Player(1*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.2f));
+		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
 
 		player = (Player) entities.get(0);
 
@@ -71,15 +71,18 @@ public class Game extends BasicGame {
 	}
 
 	public void update(GameContainer gc, int delta) throws SlickException {
-		//monster.update(player, delta);
-		//player.update(gc, mapWidth, mapHeight, delta);
-
-		for(int i = 0; i < entities.size(); i++) {
+		
+		for(int i = 0; i < entities.size() ; i++) {
 			for(int j = 0; j < entities.size(); j++) {
+				
+				if(i >= entities.size() || j >= entities.size())
+					break;
+				
 				entities.get(i).update(player, delta);
 				entities.get(i).update(gc, mapWidth, mapHeight, delta);
 				entities.get(i).update(delta);
 				entities.get(i).checkCollisions(entities.get(j));
+				
 			}
 		}
 
