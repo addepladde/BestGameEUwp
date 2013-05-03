@@ -1,6 +1,0 @@
-Setup
-http://www.cs.bsu.edu/homepages/pvg/misc/slick_eclipse_tutorial.php
-
-Tutorials
-http://www.slick2d.org/wiki/index.php/Spiegel_tutorials/01_-_A_Basic_Slick_Game#Game_interface_and_BasicGame
-http://www.slick2d.org/wiki/index.php/Spiegel_tutorials/Entity_Tutorial
