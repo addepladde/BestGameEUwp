@@ -1,8 +1,6 @@
 package game;
 
 import java.util.LinkedList;
-import java.util.Stack;
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -14,13 +12,10 @@ import org.newdawn.slick.SlickException;
 /**
  * TODO
  * 
- * träffa med skott
- * 
- * kunna hoppa på fiender så att de dör
  * 
  * kunna dö
  * 
- * statebased game
+ * statebased game - fixa menu och end
  * 
  * rendera i andra klasser än game? hur
  * 
@@ -37,7 +32,7 @@ public class Game extends BasicGame {
 	private static final boolean fullscreen = false;
 	private static final boolean showFPS = true;
 	private static final String title = "BestGameEUwp";
-	private static final int fpslimit = 60;
+	private static final int fpslimit = 120;
 
 	//Variables
 	public static final float GRAVITY = 0.01f;
@@ -46,9 +41,8 @@ public class Game extends BasicGame {
 	private Camera camera; 
 	private int mapHeight, mapWidth; 
 	private boolean[][] blocked; 	//Contains information whether the tile at x, y can be walked through
-	Monster monster;	
 	private static GUI gui;			//The graphical user interface, containing experience bar etc.
-	public static LinkedList<Entity> entities;
+	public static LinkedList<Entity> entities;	//List of all moving entities in this game
 
 	public Game(String title) {
 		super(title);
@@ -61,9 +55,18 @@ public class Game extends BasicGame {
 
 		entities = new LinkedList<Entity>();
 
-		entities.add(new Player(1*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.2f));
-		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
+		entities.add(new Player(1*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.2f));
+		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
+		entities.add(new Monster(19*32, 5*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
+		entities.add(new Monster(11*32, 3*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
+		entities.add(new Monster(15*32, 8*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
+		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
+		entities.add(new Monster(21*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
+		entities.add(new Monster(22*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
+		entities.add(new Monster(17*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
 
+		
+		
 		player = (Player) entities.get(0);
 
 		camera = new Camera(map, mapWidth, mapHeight);	
@@ -73,17 +76,21 @@ public class Game extends BasicGame {
 	public void update(GameContainer gc, int delta) throws SlickException {
 		
 		for(int i = 0; i < entities.size() ; i++) {
+			
+			
+			entities.get(i).update(player, delta);
+			entities.get(i).update(gc, mapWidth, mapHeight, delta);
+			entities.get(i).update(delta);
+			
 			for(int j = 0; j < entities.size(); j++) {
 				
 				if(i >= entities.size() || j >= entities.size())
 					break;
 				
-				entities.get(i).update(player, delta);
-				entities.get(i).update(gc, mapWidth, mapHeight, delta);
-				entities.get(i).update(delta);
 				entities.get(i).checkCollisions(entities.get(j));
 				
 			}
+
 		}
 
 		//FULT- måste fixas

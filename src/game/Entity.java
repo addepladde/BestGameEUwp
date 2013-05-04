@@ -47,10 +47,10 @@ public abstract class Entity {
 	public int getXTile(HorizontalDirection hDir) {
 				
 		if(hDir == HorizontalDirection.LEFT) { 
-			return (int) (pos.x + width) / 32;
+			return (int) (pos.x + width - 1) / 32;
 		}
 		
-		return (int) (pos.x) / 32;
+		return (int) (pos.x + 1) / 32;
 		
 	}
 	
@@ -63,7 +63,32 @@ public abstract class Entity {
 		
 		return (int) (pos.y + 1) / 32;
 	}
+	
+	
+	/**
+	 * Moves the character left
+	 * @param delta Time since last frame
+	 * @return How much the character moved
+	 */
+	public float moveLeft(int delta, float horizontalSpeed) {
+		hDir = HorizontalDirection.LEFT;
+		return -horizontalSpeed * delta;
+	}
+	
+	/**
+	 * Moves the character right
+	 * @param delta Time since last frame
+	 * @return How much the character moved
+	 */
+	public float moveRight(int delta, float horizontalSpeed) {
+		hDir = HorizontalDirection.RIGHT;
+		return horizontalSpeed * delta;
+	}
+	
 	public boolean collides(Entity e) {
+		if(this == e)
+			return false;
+		
 		Rectangle eRect = new Rectangle(e.getX(), e.getY(), 32, 32);
 	    Rectangle thisRect = new Rectangle(this.getX(), this.getY(), 32, 32);
 	    
@@ -78,18 +103,57 @@ public abstract class Entity {
 		if(this == e)
 			return;
 		
-		if(this.isInBlock() && this.getClass().toString().equals("class game.Bullet")) {
+		/**
+		 * If a bullet hit a wall
+		 */
+		if(this.isInBlock() && this instanceof game.Bullet) {
 			Game.entities.remove(this);
+			return;
+		}
+			
+		/** 
+		 * If a bullet hit a monster
+		 */
+		if(this.collides(e) && this instanceof game.Bullet	&& e instanceof game.Monster) {
+			Game.entities.remove(e);
+			Game.entities.remove(this);
+			return;
 		}
 			
 		
-		if(this.collides(e) && this.getClass().toString().equals("class game.Bullet") 
-				&& e.getClass().toString().equals("class game.Monster")) {
+		/**
+		 * If a player jumped on a monster
+		 */
+
+		if(this.collides(e) && vDir == VerticalDirection.DOWN && e.isOnGround() &&
+				this instanceof game.Player && e instanceof game.Monster
+					&& (this.getX() + this.getWidth() > e.getX() && this.getX() < e.getX() 
+						 || this.getX() < e.getX() + e.getWidth() && this.getX() + this.getWidth() > e.getX() + e.getWidth())
+								 && Math.abs(this.getY()+height - e.getY()) < 20  && this.getY() < e.getY()) {
 			Game.entities.remove(e);
-			Game.entities.remove(this);
+			return;
 		}
+		
+		if(this.collides(e) && this instanceof game.Player && e instanceof game.Monster){
+			((Player) this).getAttacked();
+		}	
 	}
 	
+	public boolean isOnGround() {
+		
+		return	blocked[(getXTile(HorizontalDirection.LEFT))][(getYTile(VerticalDirection.DOWN)+1)] 
+				|| blocked[(getXTile(HorizontalDirection.RIGHT))][(getYTile(VerticalDirection.DOWN)+1)];
+	}
+	public Vector2f getPos() {
+		return pos;
+	}
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
+	}
+
 	public float getX() {
 		return pos.x;
 	}

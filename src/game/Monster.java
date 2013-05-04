@@ -1,7 +1,6 @@
 package game;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Monster extends Creature {
@@ -31,32 +30,39 @@ public class Monster extends Creature {
 		if(Math.abs(pos.x - playerPosition.x) > 400)
 			return;
 		
-			    
-	    /** Easy way to check for collisions with rectangles **/
-	    Rectangle playerRect = new Rectangle(playerPosition.x, playerPosition.y, 32, 32);
-	    Rectangle monster = new Rectangle(pos.x, pos.y, 32, 32);	    
-	    
-	    
 	    /** Move towards the player **/
-	    /** Move 15 pixels inside the player **/
-	    if(playerPosition.x + 15 > pos.x + width) {
+	    /** Move 32 pixels inside the player **/
+	    if(playerPosition.x + player.getWidth() > pos.x + width) {
 	    	trans.x += horizontalSpeed * delta;
 	    	hDir = HorizontalDirection.RIGHT;
 	    }
-	    else if(playerPosition.x + player.width < pos.x + 15) {
+	    else if(playerPosition.x + player.width < pos.x + player.getWidth()) {
 	    	trans.x -= horizontalSpeed * delta;
 	    	hDir = HorizontalDirection.LEFT;
 	    }
 	    
 	    pos.x += trans.x;
 	    
+	    
+	    //BUGGED: if a monster falls on another monster they get stuck
+	   /**
+	     * Makes sure that the monsters don't stand in each other
+	     */
+	//    for(int i = 0; i < Game.entities.size(); i++) {
+	    	/** If colliding **/
+	    /*	if(this.collides(Game.entities.get(i)) && Game.entities.get(i) instanceof game.Monster && trans.x != 0) {
+	    		pos.x -= trans.x;
+	    	}*/
+	    	/** If they are still colliding, it must be because of falling **/
+	    /*	if(this.collides(Game.entities.get(i)) && Game.entities.get(i) instanceof game.Monster && !isOnGround()) { 
+	    		pos.y = getYTile(vDir) * 32;
+	    	}
+	    }*/
+	    
 	    if(isInBlock() && trans.x != 0) {
 			pos.x -= trans.x;			
 		}
-	    
-	    if(monster.intersects(playerRect)) {
-	    	player.getAttacked();
-	    }
+
 	}
 
 }

@@ -10,7 +10,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Player extends Creature {
 	
-	private boolean jumping, ducking;
+	private boolean ducking;
 	private int lives;
 	
 	int[] experienceNeededList = {50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
@@ -44,10 +44,9 @@ public class Player extends Creature {
 		listOfShots = new LinkedList<Bullet>();
 		
 		horizontalSpeed = 0.2f;
-		jumping = false;
 		ducking = false;
 		immune = false;
-		level = 1;
+		level = 3;
 		lives = level;
 		experienceGained = 20;
 		maxLevel = 10;
@@ -57,12 +56,14 @@ public class Player extends Creature {
 	}
 	
 	
-	
-	public void getAttacked() {
-		
+	public void getAttacked() {		
 		if(!immune) {
 			lives--;
 			makeImmune();
+		}
+		
+		if(lives <= 0) {
+			Game.entities.remove(this);
 		}
 		
 	}
@@ -109,10 +110,6 @@ public class Player extends Creature {
 	public int getExperienceNeeded(){
 		return experienceNeeded;
 	}
-	public boolean isJumping() {
-		return jumping;
-	}
-
 
 	public boolean isDucking() {
 		return ducking;
@@ -122,12 +119,6 @@ public class Player extends Creature {
 	public float getVerticalSpeed() {
 		return verticalSpeed;
 	}
-
-	public void setVerticalSpeed(float verticalSpeed) {
-		this.verticalSpeed = verticalSpeed;
-	}
-
-
 
 	public int getLives() {
 		return lives;
@@ -145,8 +136,8 @@ public class Player extends Creature {
 		Input input = gc.getInput();
 		fall(delta);
 		
-		if(isOnGround())
-			jumping = false;
+		if(isOnGround()) {
+		}
 	    
 		if (input.isKeyDown(Input.KEY_W)) {
 				jump();
@@ -179,14 +170,6 @@ public class Player extends Creature {
 		if(isInBlock() && trans.x != 0) {
 			pos.x -= trans.x;			
 		}
-		
-		/** 
-		 * Funkar ej av ngn anledning. skotten renderas EJ.
-		 */
-		for(int i = 0; i < listOfShots.size(); i++) {
-			//Game.entities.get(i).update(delta);
-			//listOfShots.get(i).render();
-		}
 	}
 	
 	public void shoot() throws SlickException {
@@ -198,7 +181,7 @@ public class Player extends Creature {
 			bulletStartPosition_X = pos.x - 1;
 		else 
 			bulletStartPosition_X = pos.x + width + 1;
-		Game.entities.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 10, 10, new Image("res/heart.png"), blocked, hDir, 0.5f));
+		Game.entities.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 3, 3, new Image("res/heart.png"), blocked, hDir, 0.5f));
 	}
 	
 	public boolean isImmune() {
