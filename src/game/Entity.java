@@ -70,7 +70,7 @@ public abstract class Entity {
 	 * @param delta Time since last frame
 	 * @return How much the character moved
 	 */
-	public float moveLeft(int delta, float horizontalSpeed) {
+	public float moveLeft(int delta) {
 		hDir = HorizontalDirection.LEFT;
 		return -horizontalSpeed * delta;
 	}
@@ -80,7 +80,7 @@ public abstract class Entity {
 	 * @param delta Time since last frame
 	 * @return How much the character moved
 	 */
-	public float moveRight(int delta, float horizontalSpeed) {
+	public float moveRight(int delta) {
 		hDir = HorizontalDirection.RIGHT;
 		return horizontalSpeed * delta;
 	}

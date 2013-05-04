@@ -146,10 +146,10 @@ public class Player extends Creature {
 				duck();			
 		}
  		if (input.isKeyDown(Input.KEY_D)) {
-			trans.x = moveRight(delta, horizontalSpeed);
+			trans.x = moveRight(delta);
 		} 
 		if (input.isKeyDown(Input.KEY_A)) {
-			trans.x = moveLeft(delta, horizontalSpeed);			
+			trans.x = moveLeft(delta);			
 		}		
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
 			shoot();			

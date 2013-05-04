@@ -33,12 +33,10 @@ public class Monster extends Creature {
 	    /** Move towards the player **/
 	    /** Move 32 pixels inside the player **/
 	    if(playerPosition.x + player.getWidth() > pos.x + width) {
-	    	trans.x += horizontalSpeed * delta;
-	    	hDir = HorizontalDirection.RIGHT;
+	    	trans.x = moveRight(delta);
 	    }
 	    else if(playerPosition.x + player.width < pos.x + player.getWidth()) {
-	    	trans.x -= horizontalSpeed * delta;
-	    	hDir = HorizontalDirection.LEFT;
+	    	trans.x = moveLeft(delta);
 	    }
 	    
 	    pos.x += trans.x;

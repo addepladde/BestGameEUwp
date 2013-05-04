@@ -19,6 +19,7 @@ import org.newdawn.slick.SlickException;
  * 
  * rendera i andra klasser än game? hur
  * 
+ * fixa animations. animationklassen har jag tagit från thenewboston tutorial 10 på youtube.
  * 
  * @author addewp
  *
