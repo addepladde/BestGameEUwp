@@ -12,12 +12,16 @@ import org.newdawn.slick.SlickException;
 /**
  * TODO
  * 
+ * 	göra så man kan få slut på ammo?
  * 
- * kunna dö
+ *  göra så vissa monster kan skjuta kanske? va vet jag
+ *  vissa med mer hp? boss-aktiga? 
  * 
  * statebased game - fixa menu och end
  * 
  * rendera i andra klasser än game? hur
+ * 
+ * fixa så monster inte collidar
  * 
  * fixa animations. animationklassen har jag tagit från thenewboston tutorial 10 på youtube.
  * 
@@ -56,18 +60,16 @@ public class Game extends BasicGame {
 
 		entities = new LinkedList<Entity>();
 
-		entities.add(new Player(1*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.2f));
-		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
-		entities.add(new Monster(19*32, 5*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
-		entities.add(new Monster(11*32, 3*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
-		entities.add(new Monster(15*32, 8*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
-		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
-		entities.add(new Monster(21*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
-		entities.add(new Monster(22*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
-		entities.add(new Monster(17*32, 2*32, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f));
+		entities.add(new Player(1*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.2f));
+		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
+		entities.add(new Monster(19*32, 5*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
+		entities.add(new Monster(11*32, 3*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
+		entities.add(new Monster(15*32, 8*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
+		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
+		entities.add(new Monster(21*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
+		entities.add(new Monster(22*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
+		entities.add(new Monster(17*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
 
-		
-		
 		player = (Player) entities.get(0);
 
 		camera = new Camera(map, mapWidth, mapHeight);	
@@ -78,7 +80,10 @@ public class Game extends BasicGame {
 		
 		for(int i = 0; i < entities.size() ; i++) {
 			
-			
+		/** Kanske ska göra if entities.get(i) instanceof Player 
+		 *  (Player entities.get(i)).update(player, delta); lr ngt så slipper vi onödiga funktionsanrop
+		 *  i stil med ((Player) this).getAttacked();	
+		 */
 			entities.get(i).update(player, delta);
 			entities.get(i).update(gc, mapWidth, mapHeight, delta);
 			entities.get(i).update(delta);
@@ -103,8 +108,6 @@ public class Game extends BasicGame {
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		camera.centerAroundPlayer(g, player); 
 		map.render(0, 0);
-		//player.render();
-
 		gui.render(gc, g, player);
 
 		LinkedList<Bullet> bl = player.getBullets();

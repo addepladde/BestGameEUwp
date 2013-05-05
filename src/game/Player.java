@@ -10,20 +10,22 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Player extends Creature {
 	
-	private boolean ducking;
-	private int lives;
+	/** Taken from Tibia's experience formula **/
+	private static final int[] experienceNeededList = {100, 100, 200, 400, 700, 1100, 1600, 2200, 2900};
+	/** Experience needed to reach the next level **/
+	private int experienceNeeded;
 	
-	int[] experienceNeededList = {50, 100, 150, 200, 250, 300, 350, 400, 450, 500};
-	int experienceNeeded;
-	int level;
-	int experienceGained;
-	int maxLevel;
-	int maxNumberOfLives;
+	/** Experience gained in the current level **/
+	private int experienceGained;
 	
+	private int level;
+	private int maxLevel;
 	
+	private int lives;	
+	private int maxNumberOfLives;
+		
 	private boolean immune;
 	private long timeForImmunity;
-	
 	
 	private LinkedList<Bullet> listOfShots;
 	
@@ -42,16 +44,16 @@ public class Player extends Creature {
 		this.hDir = HorizontalDirection.RIGHT;
 		
 		listOfShots = new LinkedList<Bullet>();
-		
-		horizontalSpeed = 0.2f;
-		ducking = false;
+
 		immune = false;
-		level = 3;
+		
+		level = 1;
 		lives = level;
-		experienceGained = 20;
-		maxLevel = 10;
+		
+		maxLevel = 5;
 		maxNumberOfLives = level;
 		
+		experienceGained = 0;
 		experienceNeeded = experienceNeededList[level-1];
 	}
 	
@@ -95,26 +97,13 @@ public class Player extends Creature {
 	public int getExperienceGained() {
 		return experienceGained;
 	}
-	public void setExperienceGained(int experienceGained) {
-		this.experienceGained = experienceGained;
-	}
+	
 	public int[] getExperienceNeededList() {
 		return experienceNeededList;
-	}
-	public void setExperienceNeededList(int[] experienceNeededList) {
-		this.experienceNeededList = experienceNeededList;
-	}
-	public void setExperienceNeeded(int experienceNeeded) {
-		this.experienceNeeded = experienceNeeded;
 	}
 	public int getExperienceNeeded(){
 		return experienceNeeded;
 	}
-
-	public boolean isDucking() {
-		return ducking;
-	}
-
 
 	public float getVerticalSpeed() {
 		return verticalSpeed;
@@ -172,8 +161,20 @@ public class Player extends Creature {
 		}
 	}
 	
+	public void gainExperience() {
+		experienceGained += 20;
+		
+		if(experienceGained >= experienceNeeded) {
+			level++;
+			experienceGained = experienceGained - experienceNeeded;
+			
+			lives++;
+			maxNumberOfLives = level;
+		}
+	}
+	
 	public void shoot() throws SlickException {
-		// Where the bullet spawns
+		/** Where the bullet spawns **/
 		float bulletStartPosition_X;
 		float bulletStartPosition_Y = pos.y + width/2; //In the middle of the character's height
 		
@@ -181,7 +182,7 @@ public class Player extends Creature {
 			bulletStartPosition_X = pos.x - 1;
 		else 
 			bulletStartPosition_X = pos.x + width + 1;
-		Game.entities.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 3, 3, new Image("res/heart.png"), blocked, hDir, 0.5f));
+		Game.entities.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 3, 3, new Image("res/heart.png"), blocked, hDir, 0.5f, this));
 	}
 	
 	public boolean isImmune() {
@@ -200,16 +201,7 @@ public class Player extends Creature {
 		this.timeForImmunity = timeForImmunity;
 	}
 
-	public void jump(){	
-
-		if(!isOnGround()){ 
-			return;
-        }
-
-		vDir = VerticalDirection.UP;
-		verticalSpeed = -5f;
-		
-	}
+	
 	public LinkedList<Bullet> getBullets() throws SlickException{
 		return listOfShots;
 	}

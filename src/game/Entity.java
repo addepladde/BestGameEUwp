@@ -7,7 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 public abstract class Entity {
-	protected Vector2f pos; // Vector contains a value with components x &amp; y
+	protected Vector2f pos; // Vector contains a value with components x and y
 	protected Image sprite;
 	protected float horizontalSpeed;
 	protected float verticalSpeed;
@@ -100,42 +100,46 @@ public abstract class Entity {
 	}
 	
 	public void checkCollisions(Entity e) {
+		/** Cannot collide with itself **/
 		if(this == e)
 			return;
 		
-		/**
-		 * If a bullet hit a wall
-		 */
+		/** If a bullet hit a wall **/ 
 		if(this.isInBlock() && this instanceof game.Bullet) {
 			Game.entities.remove(this);
 			return;
 		}
 			
-		/** 
-		 * If a bullet hit a monster
-		 */
+		/** If a bullet hit a monster **/
 		if(this.collides(e) && this instanceof game.Bullet	&& e instanceof game.Monster) {
 			Game.entities.remove(e);
 			Game.entities.remove(this);
+			
+			/** If a player killed the monster - give the player experience **/
+			/** This is safe because of the checks in the last if-statement **/
+			if(((Bullet) this).getOwner() instanceof game.Player) {
+				((Player) ((Bullet) this).getOwner()).gainExperience(); 
+			}
 			return;
 		}
 			
 		
-		/**
-		 * If a player jumped on a monster
-		 */
-
+		
+		 /** If a player jumped on a monster **/
 		if(this.collides(e) && vDir == VerticalDirection.DOWN && e.isOnGround() &&
 				this instanceof game.Player && e instanceof game.Monster
 					&& (this.getX() + this.getWidth() > e.getX() && this.getX() < e.getX() 
 						 || this.getX() < e.getX() + e.getWidth() && this.getX() + this.getWidth() > e.getX() + e.getWidth())
 								 && Math.abs(this.getY()+height - e.getY()) < 20  && this.getY() < e.getY()) {
 			Game.entities.remove(e);
+			((Player) this).gainExperience();
 			return;
 		}
 		
+		/** If a player collides with a monster, the player loses health **/
 		if(this.collides(e) && this instanceof game.Player && e instanceof game.Monster){
 			((Player) this).getAttacked();
+			return;
 		}	
 	}
 	

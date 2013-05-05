@@ -32,10 +32,10 @@ public class Monster extends Creature {
 		
 	    /** Move towards the player **/
 	    /** Move 32 pixels inside the player **/
-	    if(playerPosition.x + player.getWidth() > pos.x + width) {
+	    if(playerPosition.x + player.getWidth() - 1 > pos.x + width) {
 	    	trans.x = moveRight(delta);
 	    }
-	    else if(playerPosition.x + player.width < pos.x + player.getWidth()) {
+	    else if(playerPosition.x + player.getWidth() + 1 < pos.x + width) {
 	    	trans.x = moveLeft(delta);
 	    }
 	    
@@ -57,8 +57,14 @@ public class Monster extends Creature {
 	    	}
 	    }*/
 	    
+	    /** If the monster walked into a wall **/
 	    if(isInBlock() && trans.x != 0) {
 			pos.x -= trans.x;			
+		}
+	    
+	    /** If the monster is by a wall and the player is above the monster, jump to him **/
+		if(player.getY() < this.getY() && player.isOnGround()) {
+			jump();
 		}
 
 	}

@@ -26,4 +26,15 @@ public abstract class Creature extends Entity {
 			vDir = VerticalDirection.UP;
 			
 	}
+	
+	public void jump(){	
+
+		if(!isOnGround()){ 
+			return;
+        }
+
+		vDir = VerticalDirection.UP;
+		verticalSpeed = -5f;
+		
+	}
 }
