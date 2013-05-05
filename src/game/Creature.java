@@ -3,9 +3,14 @@ package game;
 import org.newdawn.slick.Image;
 
 public abstract class Creature extends Entity {
+	
+	
 	public Creature(float x, float y, int width, int height, Image sprite, boolean[][] blocked, float horizontalSpeed) {
 		super(x, y, width, height, sprite, blocked, horizontalSpeed);
+		
 	}
+	
+	
 	
 	/** Simulate gravity **/
 	public void fall(int delta) {

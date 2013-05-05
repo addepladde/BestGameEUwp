@@ -12,6 +12,9 @@ import org.newdawn.slick.SlickException;
 /**
  * TODO
  * 
+ *  spawna fiender på random plats
+ *  göra så att spelet blir svårare och svårare 
+ * 
  * 	göra så man kan få slut på ammo?
  * 
  *  göra så vissa monster kan skjuta kanske? va vet jag

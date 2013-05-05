@@ -31,6 +31,24 @@ public class Animation {
 		start();
 	}
 	
+	public void loop() {
+		long startingTime = System.currentTimeMillis();
+		long cumulatedTime = startingTime;
+		
+		while(cumulatedTime - startingTime < 5000) {
+			long timePassed = System.currentTimeMillis() - cumulatedTime;
+			cumulatedTime += timePassed;
+			update(timePassed);
+						
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private class OneScene {
 		Image sprite;
 		long endTime;

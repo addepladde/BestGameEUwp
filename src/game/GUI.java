@@ -56,7 +56,7 @@ public class GUI {
 		experienceGainedBar = new Rectangle(experienceBar.getX(), experienceBar.getY(), gainedExpPercent, experienceBar.getHeight());
 		
 		
-		/** Draw the experiencebars **/
+		/** Draw the experience bars **/
 		g.setColor(Color.green);
 		g.fill(experienceGainedBar);
 		g.setColor(Color.black);

@@ -38,12 +38,13 @@ public class Player extends Creature {
 		this.height = height;
 	}
 
-	public Player(float x, float y, int width, int height, Image sprite, boolean[][] blocked, float horizontalSpeed) {
+	public Player(float x, float y, int width, int height, Image sprite, boolean[][] blocked, float horizontalSpeed) throws SlickException {
 		super(x, y, width, height, sprite, blocked, horizontalSpeed);
 		
 		this.hDir = HorizontalDirection.RIGHT;
 		
 		listOfShots = new LinkedList<Bullet>();
+		
 
 		immune = false;
 		

@@ -26,7 +26,7 @@ public abstract class Entity {
 	vDir = VerticalDirection.DOWN;
 	}
 	/**
-	 * Checks if any part of the creature is in a block
+	 * Checks if any part of the entity is in a block
 	 */
 	public boolean isInBlock() {
 		
