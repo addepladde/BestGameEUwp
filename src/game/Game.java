@@ -64,7 +64,7 @@ public class Game extends BasicGame {
 	}
 	public void init(GameContainer gc) throws SlickException {
 		Music BGM = new Music("res/songofstorms.wav");
-		BGM.play();
+		BGM.loop();
 		map = new Map("res/banatilloscar.tmx");
 		
 		map = new Map("res/storbana.tmx");
