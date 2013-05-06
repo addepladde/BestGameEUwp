@@ -8,6 +8,7 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 
 
@@ -62,6 +63,9 @@ public class Game extends BasicGame {
 		super(title);
 	}
 	public void init(GameContainer gc) throws SlickException {
+		Music BGM = new Music("res/songofstorms.wav");
+		BGM.play();
+		map = new Map("res/banatilloscar.tmx");
 		
 		map = new Map("res/storbana.tmx");
 		mapWidth = map.getWidth() * map.getTileWidth(); // Map size = Tile Size * number of Tiles
