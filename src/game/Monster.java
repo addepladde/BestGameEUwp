@@ -27,8 +27,8 @@ public class Monster extends Creature {
 		
 		
 		/** Ignore if the player is too far away **/		
-		if(Math.abs(pos.x - playerPosition.x) > 400)
-			return;
+		//if(Math.abs(pos.x - playerPosition.x) > 400)
+		//	return;
 		
 	    /** Move towards the player **/
 	    /** Move 32 pixels inside the player **/

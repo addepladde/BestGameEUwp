@@ -1,6 +1,8 @@
 package game;
 
 import java.util.LinkedList;
+import java.util.Random;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -16,6 +18,8 @@ import org.newdawn.slick.SlickException;
  *  göra så att spelet blir svårare och svårare 
  * 
  * 	göra så man kan få slut på ammo?
+ * 
+ * 	ljud?
  * 
  *  göra så vissa monster kan skjuta kanske? va vet jag
  *  vissa med mer hp? boss-aktiga? 
@@ -52,27 +56,21 @@ public class Game extends BasicGame {
 	private static GUI gui;			//The graphical user interface, containing experience bar etc.
 	public static LinkedList<Entity> entities;	//List of all moving entities in this game
 
+	
+	
 	public Game(String title) {
 		super(title);
 	}
 	public void init(GameContainer gc) throws SlickException {
-		map = new Map("res/banatillmig.tmx");
+		
+		map = new Map("res/storbana.tmx");
 		mapWidth = map.getWidth() * map.getTileWidth(); // Map size = Tile Size * number of Tiles
 		mapHeight = map.getHeight() * map.getTileHeight();
 		blocked = map.getBlockedTiles();
-
+		
+		Image playerSprite = new Image("res/emo.png");
 		entities = new LinkedList<Entity>();
-
-		entities.add(new Player(1*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.2f));
-		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
-		entities.add(new Monster(19*32, 5*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
-		entities.add(new Monster(11*32, 3*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
-		entities.add(new Monster(15*32, 8*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
-		entities.add(new Monster(20*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
-		entities.add(new Monster(21*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
-		entities.add(new Monster(22*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
-		entities.add(new Monster(17*32, 2*32, 32, 32, new Image("res/emo.png"), blocked, 0.1f));
-
+		entities.add(new Player(1*32, 2*32, playerSprite.getWidth(), playerSprite.getHeight(), playerSprite, blocked, 0.2f));
 		player = (Player) entities.get(0);
 
 		camera = new Camera(map, mapWidth, mapHeight);	
@@ -80,6 +78,18 @@ public class Game extends BasicGame {
 	}
 
 	public void update(GameContainer gc, int delta) throws SlickException {
+		/** **/
+		int monstersAlive = 0;
+		
+		for(int i = 0; i < entities.size(); i++) {
+			if(entities.get(i) instanceof game.Monster)
+				monstersAlive++;
+		}
+		
+		if(monstersAlive <= 0) {
+			player.setStage(player.getStage() + 1);
+			startNewStage();
+		}
 		
 		for(int i = 0; i < entities.size() ; i++) {
 			
@@ -109,7 +119,7 @@ public class Game extends BasicGame {
 	}
 
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		camera.centerAroundPlayer(g, player); 
+		camera.translate(g, player); 
 		map.render(0, 0);
 		gui.render(gc, g, player);
 
@@ -121,6 +131,26 @@ public class Game extends BasicGame {
 			e.render();
 		}
 
+	}
+	
+	public void startNewStage() throws SlickException {
+		
+		Random rand = new Random();
+		float x = player.getX();
+		float y = player.getY();
+		Monster m = new Monster(x, y, 32, 32, new Image("res/emo.png"), blocked, 0.1f);
+		
+		int monstersSpawned = 0;
+		
+		while(monstersSpawned < player.getStage()) {
+			x = rand.nextInt(mapWidth - 1);
+			y = rand.nextInt(mapHeight - 1);
+			m = new Monster(x, y, 32, 32, new Image("res/emo.png"), blocked, 0.1f);
+			if(!m.isInBlock() && Math.abs(m.getX() - player.getX()) > 200) {
+				entities.add(m);
+				monstersSpawned++; 
+			}
+		}
 	}
 
 	public static void main(String[] args) throws SlickException {

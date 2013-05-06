@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="40" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="background" tilewidth="32" tileheight="32">
+  <image source="background.png" width="800" height="600"/>
+  <tile id="252">
+   <properties>
+    <property name="Collidable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="404">
+   <properties>
+    <property name="Collidable" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="40">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC92ZOw7EIAxEyf3rXGQPlVsgpV0hbM9MTIAUblgsnscfiPY8SjkXt6usaS1f/bPZbChfxIv87jF4mrD5RXWtwbno3lF8T308Pi9uRhfLh+HN6l+1ryL23eZLpjZv8WVYGxsa6xt8vRrr5QOpP2s2s/MMYbT2WHw9f5XP0gadXaPy692Pyhx8wseck9UfzLsg0yxtvfeLVycz+NRcIeeoMaL1p9a3EqPCNyKfDF+WLkoOvPO+8H5ZkY+9JyMf1W9X/VaxXv+2e35ODth1pg7qRvrN5mD5lP69gnUkn6P1y757RnyfZ96RSP96HAgfy430r/oez7Yov7O4LL6sOcysf+H+Zb+FstajvbP/N0DsBi/VH8kAGQAA
+  </data>
+ </layer>
+</map>

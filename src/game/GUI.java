@@ -36,22 +36,29 @@ public class GUI {
 		drawRamUsage(gc, g);
 		fillLivesBar();
 		drawLives(gc, g);
+		drawStage(gc, g, player);
 	}	
+	
+	public void drawStage(GameContainer gc, Graphics g, Player player) {
+		
+		int transX = getTranslationX();
+		int transY = getTranslationY();
+		
+		g.setColor(Color.white);
+		g.drawString("Stage: " + player.getStage(), -transX + 10, -transY + 25);
+
+	}
 	
 	public void fillExperienceBar(GameContainer gc, Graphics g, Player player){
 		
 		int experienceBarWidth = 250;
-		int transX;	
 		
 		/** To calculate the position of the experience bar and health points **/			
-		if(player.getX()-Game.WIDTH/2 < 0)     	
-			transX = 0;     
-		else if(player.getX() + Game.WIDTH/2 > mapWidth)
-			transX = -mapWidth + Game.WIDTH;
-		else
-			transX = (int) -player.getX()+Game.WIDTH/2;
+		int transX = getTranslationX();
+		int transY = getTranslationY();
 		
-		experienceBar = new Rectangle(gc.getWidth()/2-transX, 30, experienceBarWidth, 20);
+		
+		experienceBar = new Rectangle(gc.getWidth()/2 - transX, 30 - transY, experienceBarWidth, 20);
 		float gainedExpPercent = (experienceBar.getWidth()/player.getExperienceNeeded() * player.getExperienceGained());
 		experienceGainedBar = new Rectangle(experienceBar.getX(), experienceBar.getY(), gainedExpPercent, experienceBar.getHeight());
 		
@@ -68,10 +75,28 @@ public class GUI {
 		if(player.getLevel() == player.getMaxLevel())
 			g.drawString("You are at maximum level", experienceBar.getX()+20, experienceBar.getY());
 		else
-			g.drawString("Experience to level " + (player.getLevel() + 1), experienceBar.getX()+25, experienceBar.getY());
+			g.drawString("Level " + (player.getLevel()), experienceBar.getX() + 100, experienceBar.getY());
 		
 	}
 	
+	
+	public int getTranslationX()  {		
+		if(player.getX() - Game.WIDTH/2 < 0)     	
+			return 0;     
+		else if(player.getX() + Game.WIDTH/2 > mapWidth)
+			return -mapWidth + Game.WIDTH;
+		else
+			return (int) -player.getX()+Game.WIDTH/2;
+	}
+	
+	public int getTranslationY() {
+		if(player.getY()-Game.HEIGHT/2 < 0)     		
+			return 0;  
+		else if(player.getY()+Game.HEIGHT/2 > mapHeight)
+			return -mapHeight+Game.HEIGHT;
+		else
+			return (int) -player.getY() + Game.HEIGHT/2;
+	}
 	
 	private void drawRamUsage(GameContainer gc, Graphics g){
 		g.setColor(Color.black);		
@@ -91,7 +116,7 @@ public class GUI {
 	
 	/** Draw the hearts that indicate number of lives left **/
 	private void drawLives(GameContainer gc, Graphics g){
-		float x = (float) (experienceBar.getX() + experienceBar.getWidth() + 10), y = 28;
+		float x = (float) (experienceBar.getX() + experienceBar.getWidth() + 10), y = experienceBar.getY();
 		for(Image image : livesArray){
 			image.draw(x, y, 0.3f);
 			x+=25;

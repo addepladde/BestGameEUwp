@@ -29,6 +29,15 @@ public class Player extends Creature {
 	
 	private LinkedList<Bullet> listOfShots;
 	
+	private int stage;
+	
+	public int getStage() {
+		return stage;
+	}
+	
+	public void setStage(int stage) {
+		this.stage = stage;
+	}
 	
 	public void setWidth(int width) {
 		this.width = width;
@@ -45,6 +54,7 @@ public class Player extends Creature {
 		
 		listOfShots = new LinkedList<Bullet>();
 		
+		stage = 0;
 
 		immune = false;
 		
@@ -129,16 +139,16 @@ public class Player extends Creature {
 		if(isOnGround()) {
 		}
 	    
-		if (input.isKeyDown(Input.KEY_W)) {
+		if (input.isKeyDown(Input.KEY_UP)) {
 				jump();
 		}
- 		if (input.isKeyDown(Input.KEY_S)) {	
+ 		if (input.isKeyDown(Input.KEY_DOWN)) {	
 				duck();			
 		}
- 		if (input.isKeyDown(Input.KEY_D)) {
+ 		if (input.isKeyDown(Input.KEY_RIGHT)) {
 			trans.x = moveRight(delta);
 		} 
-		if (input.isKeyDown(Input.KEY_A)) {
+		if (input.isKeyDown(Input.KEY_LEFT)) {
 			trans.x = moveLeft(delta);			
 		}		
 		if (input.isKeyPressed(Input.KEY_SPACE)) {
@@ -163,9 +173,10 @@ public class Player extends Creature {
 	}
 	
 	public void gainExperience() {
+		if(level < maxLevel)
 		experienceGained += 20;
 		
-		if(experienceGained >= experienceNeeded) {
+		if(experienceGained >= experienceNeeded && level < maxLevel) {
 			level++;
 			experienceGained = experienceGained - experienceNeeded;
 			

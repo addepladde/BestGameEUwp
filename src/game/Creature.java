@@ -39,7 +39,7 @@ public abstract class Creature extends Entity {
         }
 
 		vDir = VerticalDirection.UP;
-		verticalSpeed = -5f;
+		verticalSpeed = -10f;
 		
 	}
 }

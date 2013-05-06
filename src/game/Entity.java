@@ -47,10 +47,10 @@ public abstract class Entity {
 	public int getXTile(HorizontalDirection hDir) {
 				
 		if(hDir == HorizontalDirection.LEFT) { 
-			return (int) (pos.x + width - 1) / 32;
+			return (int) (pos.x + width - 2) / 32;
 		}
 		
-		return (int) (pos.x + 1) / 32;
+		return (int) (pos.x + 2) / 32;
 		
 	}
 	
@@ -58,10 +58,10 @@ public abstract class Entity {
 	/** If the character is heading up and is between two blocks, return the lower block **/
 	public int getYTile(VerticalDirection vDir) {
 		if(vDir == VerticalDirection.UP) { 
-			return (int) (pos.y + height - 1) / 32;
+			return (int) (pos.y + height - 2) / 32;
 		}
 		
-		return (int) (pos.y + 1) / 32;
+		return (int) (pos.y + 2) / 32;
 	}
 	
 	
@@ -116,7 +116,7 @@ public abstract class Entity {
 			Game.entities.remove(this);
 			
 			/** If a player killed the monster - give the player experience **/
-			/** This is safe because of the checks in the last if-statement **/
+			/** This is safe because of the checks in the if-statement **/
 			if(((Bullet) this).getOwner() instanceof game.Player) {
 				((Player) ((Bullet) this).getOwner()).gainExperience(); 
 			}
@@ -168,17 +168,14 @@ public abstract class Entity {
 
 	public void update(Player player, int delta) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void update(GameContainer gc, int mapWidth, int mapHeight, int delta)
 			throws SlickException {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void update(int delta) {
 		// TODO Auto-generated method stub
-		
 	}
 }
