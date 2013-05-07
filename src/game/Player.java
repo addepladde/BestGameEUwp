@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -26,6 +27,7 @@ public class Player extends Creature {
 		
 	private boolean immune;
 	private long timeForImmunity;
+	Music levelUp = new Music("res/chest_fanfare.wav");
 	
 	private LinkedList<Bullet> listOfShots;
 	
@@ -182,6 +184,7 @@ public class Player extends Creature {
 			
 			lives++;
 			maxNumberOfLives = level;
+			levelUp.play();
 		}
 	}
 	

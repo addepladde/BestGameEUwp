@@ -15,12 +15,15 @@ import org.newdawn.slick.SlickException;
 /**
  * TODO
  * 
+ * det fungerar inte att hoppa på mobs och döda dom
+ * 
+ * levelup ljudet pajar det vanliga, fixar sen
+ * 
  *  spawna fiender på random plats
  *  göra så att spelet blir svårare och svårare 
  * 
  * 	göra så man kan få slut på ammo?
  * 
- * 	ljud?
  * 
  *  göra så vissa monster kan skjuta kanske? va vet jag
  *  vissa med mer hp? boss-aktiga? 
@@ -48,6 +51,7 @@ public class Game extends BasicGame {
 	private static final int fpslimit = 120;
 
 	//Variables
+	Music BGM;
 	public static final float GRAVITY = 0.01f;
 	private Map map; 				//The file that contain the world we are
 	private Player player; 			//The moving entity we will follow
@@ -57,13 +61,11 @@ public class Game extends BasicGame {
 	private static GUI gui;			//The graphical user interface, containing experience bar etc.
 	public static LinkedList<Entity> entities;	//List of all moving entities in this game
 
-	
-	
 	public Game(String title) {
 		super(title);
 	}
 	public void init(GameContainer gc) throws SlickException {
-		Music BGM = new Music("res/songofstorms.wav");
+		BGM = new Music("res/songofstorms.wav");
 		BGM.loop();
 		map = new Map("res/banatilloscar.tmx");
 		
