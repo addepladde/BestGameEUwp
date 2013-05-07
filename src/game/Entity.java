@@ -36,6 +36,8 @@ public abstract class Entity {
 		int xBlock2 = getXTile(HorizontalDirection.LEFT);
 		int yBlock2 = getYTile(VerticalDirection.UP);
 		
+		/** Fick en krash här en gång pga arrayindexoutofboundsexception när jag dödade en snubbe, kollade på plats 40. kanske borde göra checkar på nå sätt? **/
+		
 		return (blocked[xBlock][yBlock] 
 				|| blocked[xBlock2][yBlock]
 						|| blocked[xBlock][yBlock2]
@@ -64,6 +66,10 @@ public abstract class Entity {
 		return (int) (pos.y + 2) / 32;
 	}
 	
+	public Image getSprite() {
+		return sprite;
+	}
+	
 	
 	/**
 	 * Moves the character left
@@ -89,8 +95,8 @@ public abstract class Entity {
 		if(this == e)
 			return false;
 		
-		Rectangle eRect = new Rectangle(e.getX(), e.getY(), 32, 32);
-	    Rectangle thisRect = new Rectangle(this.getX(), this.getY(), 32, 32);
+		Rectangle eRect = new Rectangle(e.getX(), e.getY(), e.getSprite().getWidth(), e.getSprite().getHeight());
+	    Rectangle thisRect = new Rectangle(this.getX(), this.getY(), getSprite().getWidth(), getSprite().getHeight());
 	    
 	    return eRect.intersects(thisRect);
 	}
@@ -103,7 +109,7 @@ public abstract class Entity {
 		/** Cannot collide with itself **/
 		if(this == e)
 			return;
-		
+
 		/** If a bullet hit a wall **/ 
 		if(this.isInBlock() && this instanceof game.Bullet) {
 			Game.entities.remove(this);
@@ -111,7 +117,7 @@ public abstract class Entity {
 		}
 			
 		/** If a bullet hit a monster **/
-		if(this.collides(e) && this instanceof game.Bullet	&& e instanceof game.Monster) {
+		if(this.collides(e) && this instanceof game.Bullet && e instanceof game.Monster) {
 			Game.entities.remove(e);
 			Game.entities.remove(this);
 			

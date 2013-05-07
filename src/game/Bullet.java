@@ -17,7 +17,7 @@ public class Bullet extends Entity {
 	}
 	
 	public void render() {
-		sprite.draw(pos.x, pos.y, 0.1f);
+		sprite.draw(pos.x, pos.y, width, height);
 	}
 	
 	public Creature getOwner() {

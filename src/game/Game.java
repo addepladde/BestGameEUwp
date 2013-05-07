@@ -67,7 +67,6 @@ public class Game extends BasicGame {
 	public void init(GameContainer gc) throws SlickException {
 		BGM = new Music("res/songofstorms.wav");
 		BGM.loop();
-		map = new Map("res/banatilloscar.tmx");
 		
 		map = new Map("res/storbana.tmx");
 		mapWidth = map.getWidth() * map.getTileWidth(); // Map size = Tile Size * number of Tiles
@@ -77,6 +76,7 @@ public class Game extends BasicGame {
 		Image playerSprite = new Image("res/emo.png");
 		entities = new LinkedList<Entity>();
 		entities.add(new Player(1*32, 2*32, playerSprite.getWidth(), playerSprite.getHeight(), playerSprite, blocked, 0.2f));
+
 		player = (Player) entities.get(0);
 
 		camera = new Camera(map, mapWidth, mapHeight);	
@@ -151,7 +151,7 @@ public class Game extends BasicGame {
 		while(monstersSpawned < player.getStage()) {
 			x = rand.nextInt(mapWidth - 1);
 			y = rand.nextInt(mapHeight - 1);
-			m = new Monster(x, y, 32, 32, new Image("res/emo.png"), blocked, 0.1f);
+			m = new Monster(x, y, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f);
 			if(!m.isInBlock() && Math.abs(m.getX() - player.getX()) > 200) {
 				entities.add(m);
 				monstersSpawned++; 
