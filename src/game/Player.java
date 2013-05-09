@@ -27,7 +27,8 @@ public class Player extends Creature {
 		
 	private boolean immune;
 	private long timeForImmunity;
-	Music levelUp = new Music("res/chest_fanfare.wav");
+	
+	private Music levelUp = new Music("res/chest_fanfare.wav");
 	
 	private LinkedList<Bullet> listOfShots;
 	
@@ -197,7 +198,9 @@ public class Player extends Creature {
 			bulletStartPosition_X = pos.x - 1;
 		else 
 			bulletStartPosition_X = pos.x + width + 1;
-		Game.entities.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, 3, 3, new Image("res/heart.png"), blocked, hDir, 0.5f, this));
+		
+		Image sprite = new Image("res/testshot.png");
+		Game.entities.add(new Bullet(bulletStartPosition_X, bulletStartPosition_Y, sprite.getWidth(), sprite.getHeight(), sprite, blocked, hDir, 0.5f, this));
 	}
 	
 	public boolean isImmune() {

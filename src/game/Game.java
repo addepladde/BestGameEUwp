@@ -76,6 +76,7 @@ public class Game extends BasicGame {
 		Image playerSprite = new Image("res/emo.png");
 		entities = new LinkedList<Entity>();
 		entities.add(new Player(1*32, 2*32, playerSprite.getWidth(), playerSprite.getHeight(), playerSprite, blocked, 0.2f));
+
 		player = (Player) entities.get(0);
 
 		camera = new Camera(map, mapWidth, mapHeight);	
