@@ -151,7 +151,7 @@ public class Game extends BasicGame {
 		while(monstersSpawned < player.getStage()) {
 			x = rand.nextInt(mapWidth - 1);
 			y = rand.nextInt(mapHeight - 1);
-			m = new Monster(x, y, 32, 32, new Image("res/snubbe.png"), blocked, 0.1f);
+			m = new Monster(x, y, 32, 32, new Image("res/emo.png"), blocked, 0.1f);
 			if(!m.isInBlock() && Math.abs(m.getX() - player.getX()) > 200) {
 				entities.add(m);
 				monstersSpawned++; 

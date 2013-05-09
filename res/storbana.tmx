@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="40" height="40" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="40" height="41" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="background" tilewidth="32" tileheight="32">
   <image source="background.png" width="800" height="600"/>
   <tile id="252">
+   <properties>
+    <property name="Collidable" value="true"/>
+   </properties>
+  </tile>
+  <tile id="379">
    <properties>
     <property name="Collidable" value="true"/>
    </properties>
@@ -13,9 +18,9 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="40" height="40">
+ <layer name="Tile Layer 1" width="40" height="41">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC92ZSw7DIAxE6f3XuUgPlVsgdRtFsT0zGQrJwhuKxfP4A1G3T2vb4ra3Ne3M1w82mw3lq3iR3zOGTBM2v6iuvTgX3TuK765PxpfFzegS+TC8rv5V+6pif9p8cWrzLz6HnWNDY3XwsfMjygdSf9FsZucZwhjtifiu/FW+SBt0do2qv+x+VObgHT7mHFd/MO8Cp0XaZu+XrE5m8Km5Qs5RY0TrT61vJUaFb0Q+GT6XLkoOsvPe8H5ZkY+9Jysf1e+p+q1iV/173vNNcsCuM3XQH6TfbA6WT+nfvVhH8jlaP/fdM+L73HlHIv2bcSB8LDfSv+p73G1VfmdxRXyuOcysv+H+Zb+FXOvV3tn/GyD2A2eBfBUAGQAA
+   H4sIAAAAAAAAC92Z3Q2DMAyE6d5dg0U6FFsgVX1DEbbvjksTQPJLiJXP/0Gsr2VZJ5dtmVNavv0go9lQvooXeZ8xZD5h44v6dS/ORff24ruqk/FldjN+iXQYXlf9qnVVsd+tvzh98y8+h7S2obY6+Nj+EcUDyb+oN7P9DGGM9kR8Z/oqX+QbtHf1yr9sPip98Aofc46rPph7gVMi32b3lyxPRvCpsULOUW1E80/Nb8VGha9HPBk+l1+UGGTnPeH+MiMfOycrHVXvrv6bRc7qt93zSWLArjN5sN/If6M5WD6lfrdiHYlnb/+5Z0+P73PnjETqN+NA+FhupH7V+7hbqviO4or4XH2YWX/C/GW/hVzr1d4f23tCOf5bGM3SSvt8AZuw+zGgGQAA
   </data>
  </layer>
 </map>

@@ -27,7 +27,8 @@ public class Player extends Creature {
 		
 	private boolean immune;
 	private long timeForImmunity;
-	Music levelUp = new Music("res/chest_fanfare.wav");
+	
+	private Music levelUp = new Music("res/chest_fanfare.wav");
 	
 	private LinkedList<Bullet> listOfShots;
 	

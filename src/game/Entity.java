@@ -37,7 +37,7 @@ public abstract class Entity {
 		int yBlock2 = getYTile(VerticalDirection.UP);
 		
 		/** Fick en krash här en gång pga arrayindexoutofboundsexception när jag dödade en snubbe, kollade på plats 40. kanske borde göra checkar på nå sätt? **/
-		
+		/** Tror jag vet vad problemet är. när man nere på marken så kollar den en tile för långt. skulle kunna lösas genom att göra den 2 rader stor **/
 		return (blocked[xBlock][yBlock] 
 				|| blocked[xBlock2][yBlock]
 						|| blocked[xBlock][yBlock2]
