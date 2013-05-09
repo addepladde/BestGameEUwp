@@ -67,7 +67,6 @@ public class Game extends BasicGame {
 	public void init(GameContainer gc) throws SlickException {
 		BGM = new Music("res/songofstorms.wav");
 		BGM.loop();
-		map = new Map("res/banatilloscar.tmx");
 		
 		map = new Map("res/storbana.tmx");
 		mapWidth = map.getWidth() * map.getTileWidth(); // Map size = Tile Size * number of Tiles
@@ -118,7 +117,7 @@ public class Game extends BasicGame {
 
 		}
 
-		//FULT- måste fixas
+		//FULT- måste fixas //inte alls fullt,
 		if((System.currentTimeMillis() - player.getTimeForImmunity()) > 3000) {
 			player.setImmune(false);
 		}
