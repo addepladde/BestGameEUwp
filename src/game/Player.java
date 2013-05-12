@@ -29,6 +29,7 @@ public class Player extends Creature {
 	private long timeForImmunity;
 	
 	private Music levelUp = new Music("res/chest_fanfare.wav");
+	private Music BGM = new Music("res/songofstorms.wav");
 	
 	private LinkedList<Bullet> listOfShots;
 	
@@ -135,6 +136,9 @@ public class Player extends Creature {
 		/**
 		 * How much the character moved
 		 */
+		if(!levelUp.playing() && !BGM.playing()){
+			BGM.play();
+		}
 		Vector2f trans = new Vector2f(0, 0); 
 		Input input = gc.getInput();
 		fall(delta);
@@ -185,10 +189,11 @@ public class Player extends Creature {
 			
 			lives++;
 			maxNumberOfLives = level;
-			levelUp.play();
+			levelUp.play(); 
 		}
 	}
 	
+
 	public void shoot() throws SlickException {
 		/** Where the bullet spawns **/
 		float bulletStartPosition_X;
