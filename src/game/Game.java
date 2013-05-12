@@ -62,7 +62,7 @@ public class Game extends BasicGame {
 	public static LinkedList<Entity> entities;	//List of all moving entities in this game
 
 	public Game(String title) {
-		super(title);
+		super(title); 
 	}
 	public void init(GameContainer gc) throws SlickException {
 		BGM = new Music("res/songofstorms.wav");

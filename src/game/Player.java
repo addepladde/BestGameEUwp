@@ -133,6 +133,7 @@ public class Player extends Creature {
 	}
 	@Override
 	public void update(GameContainer gc, int mapWidth, int mapHeight, int delta) throws SlickException {
+		
 		/**
 		 * How much the character moved
 		 */
