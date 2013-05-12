@@ -8,7 +8,6 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 
 
@@ -51,7 +50,6 @@ public class Game extends BasicGame {
 	private static final int fpslimit = 120;
 
 	//Variables
-	Music BGM;
 	public static final float GRAVITY = 0.01f;
 	private Map map; 				//The file that contain the world we are
 	private Player player; 			//The moving entity we will follow
@@ -65,8 +63,6 @@ public class Game extends BasicGame {
 		super(title); 
 	}
 	public void init(GameContainer gc) throws SlickException {
-		BGM = new Music("res/songofstorms.wav");
-		BGM.loop();
 		
 		map = new Map("res/storbana.tmx");
 		mapWidth = map.getWidth() * map.getTileWidth(); // Map size = Tile Size * number of Tiles
